@@ -27,16 +27,20 @@ def execute(argv=None):
         print("别急，下一顿还没开放订餐")
         return
     if args.order:
-        keyword = args.order.decode("utf-8")
+        keyword = args.order
+        # keyword = args.order.decode("utf-8")
         dishes = [_ for _ in dishes if keyword in _.name]
         if len(dishes) == 1:
             meican.order(dishes[0])
-            print("done!")
+            print("{}餐厅，已预订{}".format(dishes[0].restaurant,dishes))
         elif not dishes:
             print("没有找到 {} 的对应菜品".format(keyword))
         else:
             print("找到多于一个菜品，请指定更详细的关键词")
             print("\n".join(["{}".format(_) for _ in dishes]))
+    else:
+        for dish in dishes:
+            print(dish.restaurant, dish)
 
 
 if __name__ == "__main__":
